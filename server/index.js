@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
+const path = require('path');
 require("dotenv").config();
 // db connection
 const uri =
@@ -13,9 +14,13 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
-
- const newRoutes = require('./routes/news')
- app.use(newRoutes)
+  
+  const newRoutes = require('./routes/news')
+  app.use(newRoutes)
+  app.use(express.static(path.join(__dirname,"./client/build")));
+  app.get("*",(req,res)=>{
+    res.sendFile(path.join(__dirname,'./client/build/index.html'));
+  })
 const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
   console.log("server is running on port 3001" );
