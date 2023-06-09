@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
-
+require("dotenv").config();
 // db connection
 const uri =
   "mongodb+srv://manishankarkumar789:mani@cluster0.higpzbh.mongodb.net/?retryWrites=true&w=majority";
@@ -16,7 +16,7 @@ mongoose
 
  const newRoutes = require('./routes/news')
  app.use(newRoutes)
-
-app.listen(3001, () => {
+const PORT = process.env.PORT || 3001
+app.listen(PORT, () => {
   console.log("server is running on port 3001" );
 });
